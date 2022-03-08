@@ -10,7 +10,8 @@ var currentCityWeatherEl = document.querySelector('.container-currentCity')
 
 var formSubmitHandler = function (event) {
     event.preventDefault();  //this prevents the page from reloading once form is submitted
-    console.log("does form handler click work??"); //test to make sure it worked
+    console.log("does form handler click work??"); 
+
     // gets the city name that was typed and will remove any spaces if city contains 2 words
     var cityName = cityInputEl.value.trim();
     //then gives city name to function-to smack API
@@ -28,8 +29,8 @@ var formSubmitHandler = function (event) {
 
 var APIKey = "c7c6d80dddc4d33a547a4a23dbe7b20c"
 // CITY API
-var getCityWeather = function (city) { //SHOULD CITY BE THERE INSTEAD OF USER????
-    var cityKeyURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+var getCityWeather = function (city) { 
+    var cityKeyURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
     console.log("our assembeled  URL with the city name added", cityKeyURL)
     
     fetch(cityKeyURL)
@@ -37,18 +38,39 @@ var getCityWeather = function (city) { //SHOULD CITY BE THERE INSTEAD OF USER???
         return response.json();
     })
     .then(function (data) {
-        console.log(data);  //the goods is an array of 30 names/people
+        console.log(data);  
         
+        // name
+        var tempInfo = document.createElement('div');
+        tempInfo.textContent = data.name
+        currentCityWeatherEl.appendChild(tempInfo);
+
+        // date --convert 
+        var tempInfo = document.createElement('div');
+        tempInfo.textContent = data.dt
+        currentCityWeatherEl.appendChild(tempInfo);
+
+        // weather icon 
+        var tempInfo = document.createElement('div');
+        tempInfo.textContent = data.weather[0]
+        currentCityWeatherEl.appendChild(tempInfo);
+
+        // temp
         var tempInfo = document.createElement('div');
         tempInfo.textContent = data.main.temp
         currentCityWeatherEl.appendChild(tempInfo);
 
-        // var tempInfo = document.createElement('div');
-        // tempInfo.textContent = data.main.temp
-        // var tempInfo = document.createElement('div');
-        // tempInfo.textContent = data.main.temp
-        // var tempInfo = document.createElement('div');
-        // tempInfo.textContent = data.main.temp
+        // wind
+        var tempInfo = document.createElement('div');
+        tempInfo.textContent = data.wind.speed
+        currentCityWeatherEl.appendChild(tempInfo);
+
+
+        // humidity 
+        var tempInfo = document.createElement('div');
+        tempInfo.textContent = data.main.humidity
+        currentCityWeatherEl.appendChild(tempInfo);
+        
         
     })
 }

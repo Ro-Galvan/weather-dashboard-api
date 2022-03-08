@@ -18,4 +18,20 @@
 .btn {
     width: 100%;
     background-color: #0054f0;
+    
+}
+
+.container-currentCity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: -7%;
+}
+
+.container-forecast {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 10%;
+
 }
