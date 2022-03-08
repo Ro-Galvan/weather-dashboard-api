@@ -30,7 +30,7 @@ var formSubmitHandler = function (event) {
 var APIKey = "c7c6d80dddc4d33a547a4a23dbe7b20c"
 // CITY API
 var getCityWeather = function (city) { 
-    var cityKeyURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
+    var cityKeyURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial" + "&img/wn/${icon}.png";
     console.log("our assembeled  URL with the city name added", cityKeyURL)
     
     fetch(cityKeyURL)
@@ -52,23 +52,23 @@ var getCityWeather = function (city) {
 
         // weather icon 
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.weather[0]
+        tempInfo.textContent = data.weather[0].icon
         currentCityWeatherEl.appendChild(tempInfo);
 
         // temp
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.main.temp
+        tempInfo.textContent = data.main.temp + " F"
         currentCityWeatherEl.appendChild(tempInfo);
 
         // wind
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.wind.speed
+        tempInfo.textContent = data.wind.speed + " MPH"
         currentCityWeatherEl.appendChild(tempInfo);
 
 
         // humidity 
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.main.humidity
+        tempInfo.textContent = data.main.humidity + " %"
         currentCityWeatherEl.appendChild(tempInfo);
         
         
