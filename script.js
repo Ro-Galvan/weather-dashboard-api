@@ -40,35 +40,35 @@ var getCityWeather = function (city) {
     .then(function (data) {
         console.log(data);  
         
-        // name
+        // name + date --CONVERT  +  weather icon 
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.name
+        tempInfo.textContent = data.name + "  (" + data.dt + ") " + data.weather[0].icon
         currentCityWeatherEl.appendChild(tempInfo);
 
-        // date --convert 
-        var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.dt
-        currentCityWeatherEl.appendChild(tempInfo);
+        // // date --convert 
+        // var tempInfo = document.createElement('div');
+        // tempInfo.textContent = data.dt
+        // currentCityWeatherEl.appendChild(tempInfo);
 
-        // weather icon 
-        var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.weather[0].icon
-        currentCityWeatherEl.appendChild(tempInfo);
+        // // weather icon 
+        // var tempInfo = document.createElement('div');
+        // tempInfo.textContent = data.weather[0].icon
+        // currentCityWeatherEl.appendChild(tempInfo);
 
         // temp
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.main.temp + " F"
+        tempInfo.textContent = "Temp: " + data.main.temp + " \u00B0F"
         currentCityWeatherEl.appendChild(tempInfo);
 
         // wind
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.wind.speed + " MPH"
+        tempInfo.textContent = "Wind: " + data.wind.speed + " MPH"
         currentCityWeatherEl.appendChild(tempInfo);
 
 
         // humidity 
         var tempInfo = document.createElement('div');
-        tempInfo.textContent = data.main.humidity + " %"
+        tempInfo.textContent = "Humidity: " + data.main.humidity + " %"
         currentCityWeatherEl.appendChild(tempInfo);
         
         
