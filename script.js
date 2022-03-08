@@ -6,6 +6,7 @@ var cityInputEl = document.querySelector('.city-search');
 var buttonEl = document.querySelector('.btn');
 var citySearchEl = document.querySelector('.city-search')
 var currentCityWeatherEl = document.querySelector('.container-currentCity')
+var forecastEl = document.querySelector('.container-forecast')
 
 
 var formSubmitHandler = function (event) {
@@ -14,6 +15,7 @@ var formSubmitHandler = function (event) {
 
     // gets the city name that was typed and will remove any spaces if city contains 2 words
     var cityName = cityInputEl.value.trim();
+
     //then gives city name to function-to smack API
     if (cityName) {
         getCityWeather(cityName);
@@ -28,11 +30,12 @@ var formSubmitHandler = function (event) {
 
 
 var APIKey = "c7c6d80dddc4d33a547a4a23dbe7b20c"
+// var iconCode = data.weather[0].icon;
 // CITY API
 var getCityWeather = function (city) { 
-    var cityKeyURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial" + "&img/wn/${icon}.png";
-    console.log("our assembeled  URL with the city name added", cityKeyURL)
-    
+    var cityKeyURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + "&units=imperial";
+    // + "&img/w/" + iconCode + ".png";
+
     fetch(cityKeyURL)
     .then(function (response) { 
         return response.json();
@@ -40,20 +43,10 @@ var getCityWeather = function (city) {
     .then(function (data) {
         console.log(data);  
         
-        // name + date --CONVERT  +  weather icon 
+        // city name + date --CONVERT  +  weather icon 
         var tempInfo = document.createElement('div');
         tempInfo.textContent = data.name + "  (" + data.dt + ") " + data.weather[0].icon
         currentCityWeatherEl.appendChild(tempInfo);
-
-        // // date --convert 
-        // var tempInfo = document.createElement('div');
-        // tempInfo.textContent = data.dt
-        // currentCityWeatherEl.appendChild(tempInfo);
-
-        // // weather icon 
-        // var tempInfo = document.createElement('div');
-        // tempInfo.textContent = data.weather[0].icon
-        // currentCityWeatherEl.appendChild(tempInfo);
 
         // temp
         var tempInfo = document.createElement('div');
@@ -65,28 +58,45 @@ var getCityWeather = function (city) {
         tempInfo.textContent = "Wind: " + data.wind.speed + " MPH"
         currentCityWeatherEl.appendChild(tempInfo);
 
-
         // humidity 
         var tempInfo = document.createElement('div');
         tempInfo.textContent = "Humidity: " + data.main.humidity + " %"
         currentCityWeatherEl.appendChild(tempInfo);
-        
-        
-    })
-}
-// One Call API
-// var requestURL= 'https://api.openweathermap.org/data/2.5/onecall?lat=35.779591&lon=-78.638176&appid=c7c6d80dddc4d33a547a4a23dbe7b20c&units=imperial';
+      
+        // 2nd API call 
+        var requestForecastURL= 'https://api.openweathermap.org/data/2.5/onecall?lat=35.779591&lon=-78.638176&appid=c7c6d80dddc4d33a547a4a23dbe7b20c&units=imperial';
 
-// fetch(requestURL)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data);
-//   })
-//   .catch(function (err) {
-//     console.log(err);
-//   });
+        fetch(requestForecastURL)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                console.log(data);
+                
+                var forecastInfo = document.createElement('div');
+                forecastInfo.textContent = data.current.uvi + " %"
+                currentCityWeatherEl.appendChild(forecastInfo);
+        
+                // 5 day forecast
+                var forecastInfo = document.createElement('div');
+                forecastInfo.textContent = data.current.uvi
+                forecastEl.appendChild(forecastInfo);
+                
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+        // UV index 
+    })
+};
+// One Call API for UVI and forecast
+var loadForecast = function (display) {
+// if city name data displays then display 5 day forecast
+}
+
+
+// var getCityWeather = function (city) { 
 
 
 //   listens for when FORM is clicked
