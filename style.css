@@ -1,0 +1,21 @@
+/* basic reset  */
+* {
+    padding: 0;
+    margin: 0;
+  }
+
+#top-title {
+    text-align: center;
+    padding: 20px;
+    border: 3px;
+    background-image: linear-gradient(to right bottom, #121cdf, #0054f0, #2b7cf8, #64a0f8, #9bc2f4, #a7c9f1, #b4d0ed, #c2d6ea, #a3c6e9, #82b6e8, #5da7e6, #2197e5);
+}
+
+.city-search{
+    width: 100%   
+}
+
+.btn {
+    width: 100%;
+    background-color: #0054f0;
+}
