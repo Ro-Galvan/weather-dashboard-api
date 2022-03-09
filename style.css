@@ -25,12 +25,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: -7%;
+    /* margin: -1%; */
 }
 
 .container-forecast {
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 margin: 10%;
 
